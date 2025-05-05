@@ -42,7 +42,7 @@ app.use(session({
     // sameSite: 'lax', // or 'none' for cross-site
     // secure: process.env.NODE_ENV === 'production' // true for HTTPS
     sameSite : 'none',
-    secure : 'true'
+    secure : true
   },
   store: MongoStore.create({
     client: mongoose.connection.getClient(), // Re-use existing connection
@@ -76,8 +76,11 @@ app.post("/api/register", async (req, res) => {
   const newUser = new User({ username, email, password: hashedPassword });
   await newUser.save();
 
-  req.session.user = { username };
-  res.json({ message: "Registration successful" });
+  req.session.user = { username };req.session.user = { username };
+  req.session.save(() => {
+    res.json({ message: "Login successful" });
+  });
+  
 });
 
 
@@ -89,9 +92,11 @@ app.post("/api/login", async (req, res) => {
   if (!user || !(await bcrypt.compare(password, user.password))) {
     return res.status(401).json({ message: "Invalid credentials" });
   }
-
   req.session.user = { username };
-  res.json({ message: "Login successful" });
+  req.session.save(() => {
+    res.json({ message: "Login successful" });
+  });
+  
 });
 
 // Example session check
@@ -116,8 +121,11 @@ app.post('/api/logout', (req, res) => {
     res.clearCookie('connect.sid', {
       path: '/',
       httpOnly: true,
-      sameSite: 'lax',
-      secure: process.env.NODE_ENV === 'production'
+      // sameSite: 'lax',
+      // secure: process.env.NODE_ENV === 'production'
+      sameSite: 'none',
+      secure: true
+
     });
 
     res.status(200).send('Logged out successfully');
