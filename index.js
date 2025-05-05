@@ -9,6 +9,11 @@ const app = express();
 
 // Middlewares
 app.use(express.json()); // to parse JSON
+const cookieParser = require('cookie-parser');
+app.use(cookieParser()); // ✅ Add this
+app.set("trust proxy", 1); // trust first proxy (Render)
+
+
 // Update CORS configuration
 // app.use(cors({
 //   origin: "http://localhost:3000",
