@@ -39,8 +39,10 @@ app.use(session({
   cookie: {
     maxAge: 1000 * 60 * 60, // 1 hour
     httpOnly: true,
-    sameSite: 'lax', // or 'none' for cross-site
-    secure: process.env.NODE_ENV === 'production' // true for HTTPS
+    // sameSite: 'lax', // or 'none' for cross-site
+    // secure: process.env.NODE_ENV === 'production' // true for HTTPS
+    sameSite : 'none',
+    secure : 'true'
   },
   store: MongoStore.create({
     client: mongoose.connection.getClient(), // Re-use existing connection
