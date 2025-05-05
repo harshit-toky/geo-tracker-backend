@@ -10,12 +10,16 @@ const app = express();
 // Middlewares
 app.use(express.json()); // to parse JSON
 // Update CORS configuration
+// app.use(cors({
+//   origin: "http://localhost:3000",
+//   credentials: true, // THIS IS CRUCIAL
+//   exposedHeaders: ['set-cookie'] // Helps with cookie issues
+// }));
 app.use(cors({
-  origin: "http://localhost:3000",
+  origin: "https://geo-tracker-frontend.vercel.app",
   credentials: true, // THIS IS CRUCIAL
   exposedHeaders: ['set-cookie'] // Helps with cookie issues
 }));
-
 
 
 
