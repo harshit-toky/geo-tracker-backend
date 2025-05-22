@@ -16,7 +16,10 @@
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "express": "^5.1.0",
+    "express-rate-limit": "^7.5.0",
     "express-session": "^1.18.1",
-    "mongoose": "^8.14.1"
+    "firebase-admin": "^13.3.0",
+    "mongoose": "^8.14.1",
+    "socket.io": "^4.8.1"
   }
 }
